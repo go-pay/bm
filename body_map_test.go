@@ -1,10 +1,10 @@
 package bm
 
 import (
+	"encoding/json"
 	"encoding/xml"
 	"testing"
 
-	"github.com/bytedance/sonic"
 	"github.com/go-pay/xlog"
 )
 
@@ -116,7 +116,7 @@ func TestBodyMapMarshalSlice(t *testing.T) {
 		Description: "分到个人",
 	}
 	rs = append(rs, item2)
-	bs, _ := sonic.Marshal(rs)
+	bs, _ := json.Marshal(rs)
 
 	bm := make(BodyMap)
 	bm.Set("nonce_str", "abc123").

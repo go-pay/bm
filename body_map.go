@@ -1,14 +1,13 @@
 package bm
 
 import (
+	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"io"
 	"net/url"
 	"sort"
 	"strings"
-
-	"github.com/bytedance/sonic"
 )
 
 type BodyMap map[string]any
@@ -84,7 +83,7 @@ func (bm BodyMap) Reset() {
 }
 
 func (bm BodyMap) JsonBody() (jb string) {
-	bs, err := sonic.Marshal(bm)
+	bs, err := json.Marshal(bm)
 	if err != nil {
 		return ""
 	}
@@ -170,7 +169,7 @@ func convertToString(v any) (str string) {
 		bs  []byte
 		err error
 	)
-	if bs, err = sonic.Marshal(v); err != nil {
+	if bs, err = json.Marshal(v); err != nil {
 		return ""
 	}
 	str = string(bs)
