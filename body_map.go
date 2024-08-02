@@ -178,6 +178,14 @@ func (bm BodyMap) CheckEmptyError(keys ...string) error {
 	return nil
 }
 
+func (bm BodyMap) Range(f func(k string, v any) bool) {
+	for k, v := range bm {
+		if !f(k, v) {
+			break
+		}
+	}
+}
+
 func convertToString(v any) (str string) {
 	if v == nil {
 		return ""
