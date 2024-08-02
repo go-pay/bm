@@ -1,5 +1,5 @@
 module github.com/go-pay/bm
 
-go 1.20
+go 1.21
 
-require github.com/go-pay/xlog v0.0.2
+require github.com/go-pay/xlog v0.0.3

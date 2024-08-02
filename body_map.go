@@ -91,6 +91,23 @@ func (bm BodyMap) JsonBody() (jb string) {
 	return jb
 }
 
+// unmarshal JSON bytes in BodyMap
+func (bm BodyMap) Unmarshal(jsonBs []byte) error {
+	if err := json.Unmarshal(jsonBs, &bm); err != nil {
+		return err
+	}
+	return nil
+}
+
+// unmarshal JSON string in BodyMap
+
+func (bm BodyMap) UnmarshalString(jsonStr string) error {
+	if err := json.Unmarshal([]byte(jsonStr), &bm); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (bm BodyMap) MarshalXML(e *xml.Encoder, start xml.StartElement) (err error) {
 	if len(bm) == 0 {
 		return nil

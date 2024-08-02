@@ -9,7 +9,7 @@ import (
 )
 
 func TestBodyMapSetBodyMap(t *testing.T) {
-	xlog.Level = xlog.DebugLevel
+	xlog.SetLevel(xlog.DebugLevel)
 	bm := make(BodyMap)
 	// 1、配合map使用
 	sceneInfo := make(map[string]map[string]string)
@@ -56,7 +56,7 @@ func TestBodyMapSetBodyMap(t *testing.T) {
 }
 
 func TestBodyMapMarshal(t *testing.T) {
-	xlog.Level = xlog.DebugLevel
+	xlog.SetLevel(xlog.DebugLevel)
 	bm := make(BodyMap)
 	bm.Set("4key", "4value").
 		Set("6key", "6value").
@@ -94,7 +94,7 @@ func TestBodyMapMarshal(t *testing.T) {
 }
 
 func TestBodyMapMarshalSlice(t *testing.T) {
-	xlog.Level = xlog.DebugLevel
+	xlog.SetLevel(xlog.DebugLevel)
 	type Receiver struct {
 		Type        string `json:"type"`
 		Account     string `json:"account"`
@@ -132,4 +132,16 @@ func TestBodyMapMarshalSlice(t *testing.T) {
 	//body := receiver.JsonBody()
 	bss, _ := xml.Marshal(bm)
 	xlog.Debug("body:", string(bss))
+}
+
+func TestBodyUnmarshal(t *testing.T) {
+	xlog.SetLevel(xlog.DebugLevel)
+	jsonStr := `{"name":"jerry","age":18}`
+	bm := make(BodyMap)
+	err := bm.UnmarshalString(jsonStr)
+	if err != nil {
+		xlog.Error(err)
+		return
+	}
+	xlog.Debug("bm:", bm)
 }
