@@ -62,12 +62,32 @@ func (bm BodyMap) GetString(key string) string {
 	return v
 }
 
+// Deprecated: Use GetAny instead.
 // 获取原始参数
 func (bm BodyMap) GetInterface(key string) any {
 	if bm == nil {
 		return nil
 	}
 	return bm[key]
+}
+
+// 获取原始参数
+func (bm BodyMap) GetAny(key string) any {
+	if bm == nil {
+		return nil
+	}
+	return bm[key]
+}
+
+// 解析到结构体指针
+func (bm BodyMap) Decode(key string, ptr any) error {
+	if bm == nil {
+		return errors.New("BodyMap is nil")
+	}
+	if err := json.Unmarshal([]byte(bm.GetString(key)), ptr); err != nil {
+		return err
+	}
+	return nil
 }
 
 // 删除参数

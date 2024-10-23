@@ -145,3 +145,22 @@ func TestBodyUnmarshal(t *testing.T) {
 	}
 	xlog.Debug("bm:", bm)
 }
+
+func TestSetSlice(t *testing.T) {
+	xlog.SetLevel(xlog.DebugLevel)
+	type User struct {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}
+	var us []*User
+	for i := 0; i < 3; i++ {
+		us = append(us, &User{
+			Name: "Jerry",
+			Age:  i,
+		})
+	}
+	bm := make(BodyMap)
+	bm.Set("slice", us)
+	jb := bm.JsonBody()
+	xlog.Debug("bm: ", jb)
+}
